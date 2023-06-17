@@ -1,8 +1,34 @@
 import Link from "next/link";
-import React from "react";
+import React,{useEffect, useState}   from "react";
 
 const Navbar = () => {
+const [token,settoken] = useState()
+const [username,setusername] = useState()
+
+   useEffect(() => {
+  
+
+    const tokyo = localStorage.getItem("token")
+
+    const toy = localStorage.getItem ("userdata")
+
+    const userdata= JSON.parse(toy)
+    if(userdata){
+
+// ? /if jgh isko bhi use kr skte hain login ka data hai yield
+      console.log(userdata.name)
+
+      settoken(tokyo)
+
+    setusername(userdata.name)
+    // setusername(userdata.name)
+    // login ki jghn name dikhane ke liye
+    }
+
+
+  }, )
   return (
+    
     <header className="text-gray-600 body-font">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <Link
@@ -30,12 +56,25 @@ const Navbar = () => {
           <Link href="/contact" className="mr-5 hover:text-gray-900">
             Contact Us
           </Link>
-          <Link href="/login" className="mr-5 hover:text-gray-900">
-            Login
+{
+  token ? <h1 className="capitalize ">
+
+    {username}
+  </h1>
+    : (
+  <div>
+    <Link
+  href="/login" className="mr-5 hover:text-gray-900">
+  Login
+ </Link>
+
+          <Link href="/register" className="mx-5 hover:text-gray-900">
+              Sign Up
           </Link>
-          <Link href="/register" className="mr-5 hover:text-gray-900">
-            Sign Up
-          </Link>
+    </div>
+          )
+}
+       
         </nav>
       </div>
     </header>

@@ -1,6 +1,48 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 const Login = () => {
+  const router = useRouter()
+  
+  const onSubmit = (value) => {
+    value.preventDefault();
+    const data ={
+      email: value.target.email.value,
+      password: value.target.password.value,
+
+    }
+    console.log(data);
+
+    
+    fetch("http://192.168.1.2:3000/login", {
+      method: 
+      'POST', 
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'  
+      },    
+        body: JSON.stringify(data)
+
+    }).then(res => res.json()).then(res => {
+      console.log(res);
+
+
+      if(res.message ==="User not found" ){
+        alert("Pahle Register bhai")
+
+      }
+      else if(res.message==="Login successfully")
+      {alert ("hogya bro.....")}
+
+      
+      localStorage.setItem("userdata", JSON.stringify(res.user))
+      localStorage.setItem("token",res.user._id)
+
+      // router.push("/")
+
+    }
+    )
+  }
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -21,7 +63,12 @@ const Login = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6" action="#"
+                onSubmit={(value) => {
+
+                  onSubmit(value);
+
+                }}>
                 <div>
                   <label
                     htmlFor="email"

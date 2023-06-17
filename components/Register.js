@@ -1,30 +1,45 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 const Register = () => {
+  const router = useRouter()
+  // to go automatical into next page
   const formsubmit = (value) => {
     value.preventDefault();
 
     const data = {
-      username: value.target.username.value,
+      name: value.target.username.value,
       email: value.target.email.value,
       password: value.target.password.value,
     };
-    console.log(data);
-    fetch("http://reqres.in/api/register", {
-      method: "POST",
 
-      body: JSON.stringify(data),
+    console.log(data);
+    fetch("http://192.168.1.2:3000/user", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'  
+      },
+      body: JSON.stringify(data)
     })
-      .then((res) => {
-        console.log(res);
+      .then(newres => {
+        newres.json().then((res) => {
+          console.log(res)
+          
+          if (res.message ==="User already exists") {
+            alert("hogya na bhai kitte br krega")
+          }else if (res.message==="User created"){
+            alert("hogya jaa")
+          }
+        }
+        )
+
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const test = ["1"];
-  console.log(typeof JSON.test);
+    // router.push("/")
+  }
 
   return (
     <div>
@@ -63,10 +78,11 @@ const Register = () => {
                   <input
                     type="username"
                     name="username"
+                    required
+
                     id="username"
                     placeholder="Your name"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
                   />
                 </div>
                 <div>
