@@ -1,6 +1,4 @@
-import Blocks from "../components/Blocks";
-import Features from "../components/Features";
-import Home from "../components/Home";
+import React from 'react'
 
 export default function Index() {
   // testing git
@@ -9,9 +7,7 @@ export default function Index() {
   // new branch
   return (
     <div>
-      <Home />
-      <Features />
-      <Blocks />
+{/* <Create/> */}
     </div>
   );
 }
