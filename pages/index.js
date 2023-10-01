@@ -7,7 +7,7 @@ export default function Index() {
   // new branch
   return (
     <div>
-{/* <Create/> */}
+      
     </div>
   );
 }
